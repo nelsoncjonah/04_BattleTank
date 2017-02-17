@@ -12,18 +12,19 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	void AimAt(FVector HitLocation);
-
-private:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
+	void AimAt(FVector HitLocation);
+	
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
+	UStaticMeshComponent* Barrel = nullptr;
 	
 };
