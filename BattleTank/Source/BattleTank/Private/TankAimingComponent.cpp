@@ -40,14 +40,21 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet
 	Barrel = BarrelToSet;
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation)
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	auto OurTankName = GetOwner()->GetName();
-	auto BarrelLocation = Barrel->GetComponentLocation();
-	UE_LOG(LogTemp, Warning, TEXT("%s is aiming at %s from %s"),
-		*OurTankName,
-		*(HitLocation.ToString()),
-		*(BarrelLocation.ToString())
+	//Used to log Our tank and enemy tank and where they were aiming
+	//auto OurTankName = GetOwner()->GetName();
+	//auto BarrelLocation = Barrel->GetComponentLocation();
+	//UE_LOG(LogTemp, Warning, TEXT("%s is aiming at %s from %s"),
+	//	*OurTankName,
+	//	*(HitLocation.ToString()),
+	//	*(BarrelLocation.ToString())
+	//	);
+
+	UE_LOG(LogTemp, Warning, TEXT("Firing at %f"),
+		LaunchSpeed
 		);
+
+
 }
 
