@@ -21,14 +21,15 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 
 void ATank::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Player Fires"));
 
 	if (!Barrel) { return; }
 
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	FRotator StartRotation = Barrel->GetSocketRotation(FName("Projectile"));
 
-	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, StartLocation, StartRotation);
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, StartLocation, StartRotation);
+
+	Projectile->LaunchProjectile(LaunchSpeed);
 }
 
 // Sets default values
