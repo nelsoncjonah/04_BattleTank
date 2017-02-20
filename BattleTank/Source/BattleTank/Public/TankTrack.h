@@ -21,5 +21,5 @@ public:
 
 	//This is max force per track in newtons
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		float TackMaxTrivingForce = 400000; //Assume 40Ton tank and 1g acceleration
+		float TackMaxTrivingForce = 40000000; //Assume 40Ton tank and 1g acceleration
 };
