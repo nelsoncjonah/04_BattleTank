@@ -35,6 +35,7 @@ public:
 		TSubclassOf<AProjectile> ProjectileBlueprint; // TODO find sensible firing value
 
 protected:
+	UPROPERTY(BlueprintReadOnly, Category = "Firing")
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
