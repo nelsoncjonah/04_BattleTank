@@ -14,12 +14,12 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	auto AIPawn = Cast<ATank>(GetPawn());
-	if (!AIPawn) { return; }
+	if (!ensure(AIPawn)) { return; }
 
 	auto PlayerPawn = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (!PlayerPawn) { return; }
+	if (!ensure(PlayerPawn)) { return; }
 
-	if (PlayerPawn)
+	if (ensure(PlayerPawn))
 	{
 		//Move towardPlayer
 		MoveToActor(PlayerPawn, AcceptanceRadius);
