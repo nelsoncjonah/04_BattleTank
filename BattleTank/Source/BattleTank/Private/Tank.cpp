@@ -1,33 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
-#include "Public/TankBarrel.h"
-#include "Public/TankTurret.h"
-#include "Projectile.h"
 #include "Public/Tank.h"
 
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-void ATank::Fire()
-{
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (!ensure(Barrel)) { return; }
-	if (isReloaded) {
-
-		FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-		FRotator StartRotation = Barrel->GetSocketRotation(FName("Projectile"));
-
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, StartLocation, StartRotation);
-
-		Projectile->LaunchProjectile(LaunchSpeed);
-
-		LastFireTime = FPlatformTime::Seconds();
-	}
-}
 
 // Sets default values
 ATank::ATank()
