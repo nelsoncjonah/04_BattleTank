@@ -2,12 +2,17 @@
 
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Public/TankBarrel.h"
 #include "Public/TankTurret.h"
 #include "Projectile.h"
 #include "Public/Tank.h"
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+
+}
 
 void ATank::Fire()
 {

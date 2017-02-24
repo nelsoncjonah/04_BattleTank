@@ -11,7 +11,6 @@ class UTankBarrel; //Forward Declaration
 class UTankTurret;
 class AProjectile;
 class UTankAimingComponent;
-class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -22,6 +21,8 @@ class BATTLETANK_API ATank : public APawn
 public:
 	void AimAt(FVector HitLocation);
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Play")
 		void Fire();
@@ -33,8 +34,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Firing")
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Movement")
-	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
