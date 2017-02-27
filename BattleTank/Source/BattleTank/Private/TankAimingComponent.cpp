@@ -44,11 +44,18 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	}
 }
 
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
+}
+
+
 bool UTankAimingComponent::IsBarrelMoving()
 {
 	if (!ensure(Barrel)) { return false; }
 	auto BarrelForward = Barrel->GetForwardVector();
-	return !BarrelForward.Equals(AimDirection, 0.01); // vectors are equal
+	return !BarrelForward.Equals(AimDirection, 0.03); // vectors are equal
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
