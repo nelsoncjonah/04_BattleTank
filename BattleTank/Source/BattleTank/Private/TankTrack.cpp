@@ -9,6 +9,10 @@ UTankTrack::UTankTrack()
 
 }
 
+void UTankTrack::BeginPlay()
+{
+	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
+}
 
 void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
@@ -23,6 +27,12 @@ void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActor
 	auto CorrectionForce = (TankRoot->GetMass() * CorrectingAcceleration) / 2;
 	TankRoot->AddForce(CorrectionForce);
 
+}
+
+void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Im HIt")
+		);
 }
 
 void UTankTrack::SetThrottle(float Throttle)
