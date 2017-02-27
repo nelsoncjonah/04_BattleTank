@@ -3,7 +3,27 @@
 #include "BattleTank.h"
 #include "TankTrack.h"
 
+UTankTrack::UTankTrack()
+{
+	PrimaryComponentTick.bCanEverTick = true;
 
+}
+
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	auto SlippageSpeed = FVector::DotProduct(GetComponentVelocity(), GetRightVector());
+
+	//workout the required acceleration this frame to correct 
+	auto CorrectingAcceleration = -SlippageSpeed / DeltaTime * GetRightVector();
+
+	//Calculate and apply sideways force( f = m * a)
+
+	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto CorrectionForce = (TankRoot->GetMass() * CorrectingAcceleration) / 2;
+	TankRoot->AddForce(CorrectionForce);
+
+}
 
 void UTankTrack::SetThrottle(float Throttle)
 {
