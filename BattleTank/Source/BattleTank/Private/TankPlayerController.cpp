@@ -48,7 +48,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 		// Line-trace along that LookDirection, and see what we hit (up to max range)
 		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-	
 	return false;
 }
 

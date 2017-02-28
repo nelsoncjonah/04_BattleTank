@@ -48,15 +48,14 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	}
 }
 
+int32 UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
 
 EFiringState UTankAimingComponent::GetFiringState() const
 {
 	return FiringState;
-}
-
-int32 UTankAimingComponent::GetRoundsLeft() const
-{
-	return RoundsLeft;
 }
 
 
@@ -64,7 +63,7 @@ bool UTankAimingComponent::IsBarrelMoving()
 {
 	if (!ensure(Barrel)) { return false; }
 	auto BarrelForward = Barrel->GetForwardVector();
-	return !BarrelForward.Equals(AimDirection, 0.03); // vectors are equal
+	return !BarrelForward.Equals(AimDirection, 0.01); // vectors are equal
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -103,12 +102,13 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
+	// Always yaw the shortest way
 	Barrel->Elevate(DeltaRotator.Pitch);
 	if (FMath::Abs(DeltaRotator.Yaw) < 180)
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
 	}
-	else
+	else // Avoid going the long-way round
 	{
 		Turret->Rotate(-DeltaRotator.Yaw);
 	}
@@ -125,10 +125,11 @@ void UTankAimingComponent::Fire()
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
 			Barrel->GetSocketRotation(FName("Projectile"))
-			);
+		);
 
 		Projectile->LaunchProjectile(LaunchSpeed);
-		RoundsLeft--;
 		LastFireTime = FPlatformTime::Seconds();
+		RoundsLeft--;
 	}
 }
+
